@@ -1,0 +1,38 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "my-quarkus-app"
+  annotations:
+    argocd/app-name: my-quarkus-app-dev
+    backstage.io/kubernetes-id: my-quarkus-app
+    backstage.io/kubernetes-namespace: my-quarkus-app-dev
+    janus-idp.io/tekton-enabled : 'true'
+    github.com/project-slug: mhill/my-quarkus-app
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - java
+    - quarkus
+  links:
+    - url: https://devspaces.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com/#https://github.com/mhill/my-quarkus-app?che-editor=che-incubator/che-code/insiders&devfilePath=.devfile-vscode.yaml
+      title: OpenShift Dev Spaces (VS Code)
+      icon: web
+    - url: https://devspaces.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com/#https://github.com/mhill/my-quarkus-app?che-editor=che-incubator/che-idea/latest&devfilePath=.devfile-intellij.yaml
+      title: OpenShift Dev Spaces (JetBrains IntelliJ)
+      icon: web
+spec:
+  type: service
+  lifecycle: production
+  owner: "group:default/mhill"
+  providesApis:
+    - "my-quarkus-app"
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: "my-quarkus-app"
+spec:
+  type: openapi
+  lifecycle: production
+  owner: "group:default/mhill"
+  definition:
+    $text: ./openapi.yaml
